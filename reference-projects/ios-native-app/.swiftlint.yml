@@ -1,0 +1,128 @@
+# .swiftlint.yml — iOS reference app (Swift 6.3 strict concurrency)
+# Swift 6.3 / iOS 26.4 / SwiftUI + @Observable + Strict Concurrency
+
+included:
+  - MyApp
+  - MyAppTests
+  - MyAppUITests
+
+excluded:
+  - .build
+  - DerivedData
+  - MyApp/Generated
+
+disabled_rules:
+  - trailing_whitespace
+  - trailing_comma
+  - todo
+  - opening_brace
+
+opt_in_rules:
+  # Concurrency
+  - async_without_await
+  - unhandled_throwing_task
+
+  # SwiftUI
+  - private_swiftui_state
+
+  # Code quality
+  - closure_body_length
+  - closure_end_indentation
+  - closure_spacing
+  - contains_over_filter_count
+  - contains_over_filter_is_empty
+  - contains_over_first_not_nil
+  - direct_return
+  - discouraged_optional_boolean
+  - empty_collection_literal
+  - empty_count
+  - empty_string
+  - fatal_error_message
+  - first_where
+  - force_unwrapping
+  - identical_operands
+  - implicit_return
+  - joined_default_parameter
+  - last_where
+  - legacy_multiple
+  - modifier_order
+  - overridden_super_call
+  - prefer_self_in_static_references
+  - prefer_zero_over_explicit_init
+  - redundant_nil_coalescing
+  - redundant_type_annotation
+  - return_value_from_void_function
+  - self_binding
+  - shorthand_optional_binding
+  - superfluous_else
+  - toggle_bool
+  - unavailable_function
+  - unneeded_parentheses_in_closure_argument
+  - unowned_variable_capture
+  - unused_parameter
+  - vertical_whitespace_closing_braces
+  - vertical_whitespace_opening_braces
+  - weak_delegate
+  - yoda_condition
+
+analyzer_rules:
+  - unused_declaration
+  - unused_import
+
+line_length:
+  warning: 120
+  error: 200
+  ignores_comments: true
+  ignores_urls: true
+
+type_body_length:
+  warning: 300
+  error: 500
+
+file_length:
+  warning: 500
+  error: 1000
+
+function_body_length:
+  warning: 50
+  error: 100
+
+identifier_name:
+  min_length:
+    warning: 2
+    error: 1
+  max_length:
+    warning: 50
+    error: 60
+  excluded:
+    - id
+    - i
+    - j
+    - x
+    - y
+    - to
+
+type_name:
+  min_length: 3
+  max_length:
+    warning: 50
+    error: 60
+
+self_binding:
+  bind_identifier: self
+
+modifier_order:
+  preferred_modifier_order:
+    - acl
+    - setterACL
+    - override
+    - dynamic
+    - mutators
+    - lazy
+    - final
+    - required
+    - convenience
+    - typeMethods
+    - owned
+
+reporter: xcode

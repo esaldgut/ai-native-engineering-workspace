@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+._*
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.netrwhist
+
+# Node (in case any tooling lands here later)
+node_modules/
+
+# Local-only Claude Code settings (never the shared settings.json)
+.claude/settings.local.json

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if ! git rev-parse --git-dir >/dev/null 2>&1; then exit 0; fi; BASELINE_PR=0; UNCAPTURED=$(git log develop --format='%s' 2>/dev/null | awk -v base=\"$BASELINE_PR\" '/^chore\\(lessons\\): capture/ { rest = $0; while (match(rest, /PR#[0-9]+/)) { captured[substr(rest, RSTART+3, RLENGTH-3)] = 1; rest = substr(rest, RSTART+RLENGTH) } next } /\\(#[0-9]+\\)$/ { match($0, /\\(#[0-9]+\\)$/); n = substr($0, RSTART+2, RLENGTH-3); if (n > base && !(n in captured) && !(n in seen)) { seen[n] = 1; print n } }' | head -1); if [ -n \"$UNCAPTURED\" ]; then printf '\\033[33m⚠️  Merge detected without lesson capture: PR#%s. Run /capture-lessons %s to extract lessons.\\033[0m\\n' \"$UNCAPTURED\" \"$UNCAPTURED\" >&2; fi; exit 0"
+          }
+        ]
+      }
+    ]
+  }
+}

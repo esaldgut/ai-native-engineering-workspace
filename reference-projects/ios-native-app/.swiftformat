@@ -1,0 +1,59 @@
+# .swiftformat — iOS reference app (Swift 6.3 strict concurrency)
+# Swift 6.3 / iOS 26.4 / SwiftUI + @Observable + Strict Concurrency
+
+# Swift version
+--swiftversion 6.0
+--exclude .build,DerivedData
+
+# Indentation
+--indent 2
+--tabwidth 2
+--smarttabs enabled
+--indentcase false
+--ifdef indent
+
+# Wrapping
+--maxwidth 120
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--wrapconditions after-first
+--wrapreturntype if-multiline
+--wraptypealiases before-first
+--closingparen balanced
+
+# Braces
+--allman false
+
+# Spacing
+--operatorfunc spaced
+--nospaceoperators ...,..<
+--ranges spaced
+--trimwhitespace always
+
+# Self
+--self remove
+
+# Imports
+--importgrouping testable-last
+
+# Attributes
+--funcattributes prev-line
+--typeattributes prev-line
+--storedvarattrs same-line
+--computedvarattrs prev-line
+
+# Misc
+--semicolons never
+--commas always
+--stripunusedargs closure-only
+--header ignore
+
+# Opt-in rules
+--enable isEmpty
+--enable markTypes
+--enable organizeDeclarations
+--enable sortSwitchCases
+--enable wrapEnumCases
+--enable wrapConditionalBodies
+--enable acronyms
