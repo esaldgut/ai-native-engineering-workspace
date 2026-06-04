@@ -1,17 +1,17 @@
 # AI-Native Engineering Workspace
 
 A public library of **41 reusable Claude Code Agent Skills**, the **platform-base workflow docs**
-they extend, and a **self-maintaining freshness system** that keeps every pattern honest against
-the official docs it cites.
+they extend, and a **freshness system** that re-verifies each pattern against the official docs it
+cites.
 
-Every skill here was extracted generically from real production engineering, rewritten from
-scratch (never copy-pasted), and **verified live against vendor documentation** — Apple Developer,
-AWS, Android, Anthropic — before it shipped. Each one carries machine-readable provenance: what it
-was checked against, when, at which version, and when it should be re-checked.
+Each skill is a generic extraction from production engineering, rewritten from scratch (not
+copy-pasted) and verified against vendor documentation: Apple Developer, AWS, Android, Anthropic.
+Every skill records its own provenance: which sources it was checked against, when, at which
+version, and when to re-check it.
 
-> This is not a tutorial collection. It's the toolkit and conventions an AI-native engineer
-> actually works with — across Apple (Swift 6 / iOS 26), AWS (Lambda Go / CDK), Android
-> (Kotlin / Compose / KMP), and Claude Code / MCP — published so others can reuse the patterns.
+Scope: working patterns and conventions across Apple (Swift 6 / iOS 26), AWS (Lambda Go / CDK),
+Android (Kotlin / Compose / KMP), and Claude Code / MCP. Not a tutorial collection — these are
+the patterns an AI-native engineer applies, published for reuse.
 
 ---
 
@@ -28,7 +28,7 @@ was checked against, when, at which version, and when it should be re-checked.
 | **`workflow-docs/`** | 13 | The generic platform base (Apple, Android, Expo, AWS, Next.js, MCP, Chrome, TypeScript, Shell, Kali, + the platform premise). Skills extend these. |
 | **`reference-projects/`** | 2 | Sanitized architecture docs for a native iOS app and a native Android app — Clean Architecture, tech-research decisions, iOS 26 UX patterns |
 
-**Total: 41 skills + 13 base docs.** ~14,000 lines of documented engineering, every claim cited.
+**Total: 41 skills + 13 base docs**, roughly 14,000 lines of documented engineering.
 
 ---
 
@@ -63,15 +63,15 @@ five patterns were already stale or mythical at the moment of verification:
 | Coroutine tests | `runBlockingTest` | deprecated → `runTest` (kotlinx-coroutines-test 1.6+) |
 | Constant-time compare | `CryptoKit.timingSafeEqual` | **never existed** — use `HMAC.isValidAuthenticationCode` |
 
-So every skill carries a `freshness` block in its frontmatter — cited sources with versions, a
+So every skill carries a `freshness` block in its frontmatter: cited sources with versions, a
 verification date, a re-check trigger, and a status. The **`skill-pattern-freshness-audit`** skill
-reads those blocks, re-verifies each cited API against current docs, and flags
-`current` / `needs-recheck` / `stale` / `superseded` with the citation that proves it. The
-**`dossier-driven-skill-update`** skill repairs what the audit flags. See
+reads those blocks, re-verifies each cited API against current docs, and sets each status to
+`current`, `needs-recheck`, `stale`, or `superseded` with the citation that proves it. The
+**`dossier-driven-skill-update`** skill repairs what the audit flags. The contract is in
 [`global-skills/FRESHNESS_SPEC.md`](global-skills/FRESHNESS_SPEC.md).
 
-That detect → repair loop is what separates this from a static gist: drift becomes a queryable
-signal instead of something a reader discovers in production.
+The detect-then-repair loop makes drift a queryable signal rather than something a reader finds in
+production.
 
 ---
 
@@ -98,30 +98,33 @@ freshness:
 ---
 ```
 
-…followed by: when to invoke (+ trigger signals), a table of **verified** APIs, the load-bearing
-rules with code, a canonical example using generic names (`MyApp`, `com.example.app`), a decision
-aid (when *not* to use it), cross-links, sources, and a "Last verified" footer.
+…followed by: when to invoke (with trigger signals), a table of **verified** APIs, the
+load-bearing rules with code, a canonical example using generic names (`MyApp`,
+`com.example.app`), a decision aid (when *not* to use it), cross-links, sources, and a
+"Last verified" footer.
 
 [`global-skills/apple/swift-liquid-glass-design-system-ios26/`](global-skills/apple/swift-liquid-glass-design-system-ios26/SKILL.md)
-is the exemplar — start there to see the bar.
+is the reference example for the format.
 
 ---
 
 ## Quality bar
 
-Every skill in this repo satisfies, mechanically:
+Each skill meets every one of these:
 
 - **Verified, not assumed.** Every API in a "canonical APIs" table was confirmed against the
-  vendor's live docs. Live verification corrected ~17 errors during authoring (wrong version
-  numbers, renamed artifacts, a nonexistent crypto symbol, an API that 404'd) before they shipped.
-- **≥2 cited sources**, at least one a primary vendor/standards doc, each with a resolving URL + version.
-- **Anti-sterilization:** every body names at least one concrete public API string — so the
-  pattern is anchored and the freshness audit has a literal symbol to re-check.
+  vendor's live docs. That verification caught more than a dozen errors during authoring: wrong
+  version numbers, renamed artifacts, a nonexistent crypto symbol (`CryptoKit.timingSafeEqual`),
+  and an API URL that returned 404.
+- **At least two cited sources**, one of them a primary vendor or standards doc, each with a
+  resolving URL and a version.
+- **Anti-sterilization.** Every body names at least one concrete public API, which anchors the
+  pattern and gives the freshness audit a literal symbol to re-check.
 - **One skill, one job.** No mega-skills.
-- **Honest about canon.** Where a domain is still emerging (Claude Code / MCP), skills explicitly
-  mark which patterns are documented-canonical vs. opinionated convention.
-- **Zero confidential context.** No client/employer identifiers anywhere — these are generic
-  patterns, not a leak of any private codebase.
+- **Honest about canon.** Where a domain is still emerging (Claude Code / MCP), skills mark which
+  patterns are documented-canonical versus opinionated convention.
+- **Zero confidential context.** No client or employer identifiers anywhere; these are generic
+  patterns, not an extract of any private codebase.
 
 ---
 
