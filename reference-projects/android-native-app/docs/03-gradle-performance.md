@@ -34,7 +34,7 @@ android.defaults.buildfeatures.resvalues=false
 
 ## SSD externo — consideración de I/O
 
-El proyecto + SDK viven en `PortableSSD`. El build cache de Gradle también queda en el SSD.
+El proyecto + SDK viven en your external SSD. El build cache de Gradle también queda en el SSD.
 Implicaciones:
 
 - ✅ Mantener el SSD conectado por un puerto rápido (TB/USB-C 10Gbps+)
