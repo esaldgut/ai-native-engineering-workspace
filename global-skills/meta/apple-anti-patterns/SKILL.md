@@ -1,13 +1,29 @@
 ---
 name: apple-anti-patterns
 description: |
-  Append-only registry of Apple-framework anti-patterns this project has hit, with
-  the canonical alternative for each. Consulted at Phase 0 sweep (Lesson #56) and
-  per-PR micro-sweep (Lesson #58) BEFORE proposing architecture or wiring. Each
-  entry traces back to the lesson that originated it. Never delete entries; append
-  exceptions if a context-specific reversal is later justified.
+  Append-only registry of Apple-framework anti-patterns, each paired with the canonical
+  alternative and a citation to Apple's documented guidance. Consulted at sprint Phase 0
+  sweep and per-PR micro-sweep BEFORE proposing architecture or wiring. Never delete
+  entries; append exceptions if a context-specific reversal is later justified.
 version: "1.0.0"
 color: red
+freshness:
+  verified_against:
+    - source: "Apple Developer Documentation — Observation framework (AP-5 @Observable over ObservableObject)"
+      url: "https://developer.apple.com/documentation/observation"
+      version: "iOS 17+"
+    - source: "Apple HIG — Loading and progress (AP-2 disable controls on unavailable conditions)"
+      url: "https://developer.apple.com/design/human-interface-guidelines/loading"
+      version: "iOS 26"
+    - source: "WWDC25 Session 266 — Explore Concurrency in SwiftUI (AP-1 .task AsyncSequence consumer)"
+      url: "https://developer.apple.com/videos/play/wwdc2025/266/"
+      version: "WWDC25"
+  verified_on: "2026-06-03"
+  recheck_after:
+    trigger: "WWDC26 keynote (annual Apple API surface change)"
+    or_date: "2026-12-01"
+  decay_risk: medium
+  status: current
 ---
 
 # Apple Framework Anti-Pattern Registry
@@ -751,8 +767,14 @@ Both are needed: the lesson is the rule, the AP entry is the diff.
 
 ## Related skills / docs
 
-- `.claude/skills/capture-lessons/SKILL.md` — the pipeline that adds entries here
-- `.claude/skills/swift-module/SKILL.md` — Phase 0 / planning gates that consult this file
-- `.claude/skills/feature-scaffold/SKILL.md` — pre-scaffold checklist that consults this file
-- `.claude/skills/ui-design-workflow/SKILL.md` — pre-sprint discipline that consults this file
-- `~/.claude/projects/.../memory/feedback_lessons_learned.md` — Lessons #51, #56, #58, #59, #60
+- `capture-lessons` skill — the pipeline that adds entries here
+- `swift-module` / `swift-feature-scaffold` skills — Phase 0 / planning gates that consult this file
+- `ui-design-workflow` skill — pre-sprint discipline that consults this file
+- `global-skills/meta/skill-pattern-freshness-audit/SKILL.md` — keeps the cited Apple APIs current
+
+---
+
+**Last verified:** 2026-06-03 against Apple Developer docs (Observation framework), Apple HIG
+(Loading and progress), and WWDC25 #266 (Explore Concurrency in SwiftUI).
+**Re-check after:** WWDC26 keynote, or by 2026-12-01. **Decay risk:** medium.
+**Found a drift?** Run `/skill-pattern-freshness-audit meta`.

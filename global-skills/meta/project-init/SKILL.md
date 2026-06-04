@@ -1,6 +1,27 @@
 ---
 name: project-init
-description: Inicializa o audita un proyecto contra la documentación base de plataforma del CLI workflow (~/.config/nvim/*_WORKFLOW.md). Aplica la premisa universal "ningún proyecto inicia de manera ambigua": el proyecto obtiene contexto desde la base genérica de plataforma y luego la extiende. Auto-invocar al abrir un proyecto sin bloque "Platform Base Context" en su CLAUDE.md, cuando el usuario pida "inicializar/bootstrap contexto", o al crear un proyecto nuevo. Genera/verifica el bloque de contexto base en CLAUDE.md y sugiere docs/<DOMAIN>_EXTENSIONS.md.
+description: >-
+  Inicializa o audita un proyecto contra la documentación base de plataforma del CLI
+  workflow. Aplica la premisa universal — ningún proyecto inicia de manera ambigua: el
+  proyecto obtiene contexto desde la base genérica de plataforma y luego la extiende.
+  Auto-invocar al abrir un proyecto sin bloque "Platform Base Context" en su CLAUDE.md,
+  cuando el usuario pida inicializar/bootstrap de contexto, o al crear un proyecto nuevo.
+  Genera/verifica el bloque de contexto base en CLAUDE.md y sugiere docs/DOMAIN_EXTENSIONS.md.
+version: "1.0.0"
+freshness:
+  verified_against:
+    - source: "Anthropic — How Claude remembers your project (CLAUDE.md scopes + imports)"
+      url: "https://code.claude.com/docs/en/memory"
+      version: "2026-06"
+    - source: "Anthropic — Agent Skills best practices"
+      url: "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices"
+      version: "2026-06"
+  verified_on: "2026-06-03"
+  recheck_after:
+    trigger: "Claude Code CLAUDE.md / memory schema change"
+    or_date: "2026-12-03"
+  decay_risk: medium
+  status: current
 ---
 
 # project-init — Inicialización de Contexto de Plataforma
@@ -192,6 +213,12 @@ Usuario: /project-init
 ---
 
 **Relacionado:**
-- `~/.config/nvim/PLATFORM_BASE.md` — premisa universal
-- `~/.config/nvim/README.md` — índice de docs base
-- Project memory: regla de inicialización de proyectos
+- `workflow-docs/PLATFORM_BASE.md` — premisa universal
+- `workflow-docs/README.md` — índice de docs base
+- `global-skills/meta/skill-pattern-freshness-audit/SKILL.md` — mantiene este skill verificado
+
+---
+
+**Last verified:** 2026-06-03 against Claude Code memory docs (CLAUDE.md scopes + imports) and
+Agent Skills best practices.
+**Re-check after:** Claude Code CLAUDE.md / memory schema change, or by 2026-12-03. **Decay risk:** medium.
