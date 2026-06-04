@@ -1,12 +1,12 @@
 # Roadmap
 
-What this repo is, and where it's going. Current state: **41 skills + 13 platform-base docs**, all
+What this repo is, and where it's going. Current state: **42 skills + 13 platform-base docs**, all
 verified against live vendor docs, 0 confidential identifiers.
 
 ## Now (shipped)
 
 - ✅ 13 generic platform-base workflow docs (`workflow-docs/`)
-- ✅ 41 Agent Skills across 6 domains (`global-skills/`)
+- ✅ 42 Agent Skills across 7 domains (`global-skills/`)
 - ✅ The freshness framework — `FRESHNESS_SPEC.md` + the 3 meta-skills (extract / audit / repair)
 - ✅ Per-domain navigation READMEs + a coverage matrix
 - ✅ Sanitized iOS + Android reference-project architecture docs

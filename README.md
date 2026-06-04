@@ -1,6 +1,6 @@
 # AI-Native Engineering Workspace
 
-A public library of **41 reusable Claude Code Agent Skills**, the **platform-base workflow docs**
+A public library of **42 reusable Claude Code Agent Skills**, the **platform-base workflow docs**
 they extend, and a **freshness system** that re-verifies each pattern against the official docs it
 cites.
 
@@ -24,11 +24,12 @@ the patterns an AI-native engineer applies, published for reuse.
 | **`global-skills/aws-go/`** | 8 | AWS SDK Go v2 version policy, canonical error handling, Lambda cold-start segregation, refactor blast-radius audit, MongoDB TTL correctness, CDK drift detection, adversarial pre-build audit, provider-API property verification |
 | **`global-skills/android/`** | 5 | Compose Clean Architecture + feature scaffolding, JUnit5/Turbine/MockK testing, security checklist (DataStore + Tink + Keystore), Kotlin Multiplatform extraction |
 | **`global-skills/claude-code-workflow/`** | 6 | Project bootstrap, lesson-capture pipeline, build-sync pipeline, MCP orchestration + the Android-specific twins |
+| **`global-skills/writing/`** | 1 | A canon for technical writing in Spanish (no spanglish, no voseo, technical terms kept in English) with a detection pass |
 | **`global-skills/meta/`** | 3 | Skills *about* skills: extraction methodology, freshness audit, dossier-driven update |
 | **`workflow-docs/`** | 13 | The generic platform base (Apple, Android, Expo, AWS, Next.js, MCP, Chrome, TypeScript, Shell, Kali, + the platform premise). Skills extend these. |
 | **`reference-projects/`** | 2 | Sanitized architecture docs for a native iOS app and a native Android app — Clean Architecture, tech-research decisions, iOS 26 UX patterns |
 
-**Total: 41 skills + 13 base docs**, roughly 14,000 lines of documented engineering.
+**Total: 42 skills + 13 base docs**, roughly 14,000 lines of documented engineering.
 
 ---
 
@@ -157,7 +158,8 @@ ai-native-engineering-workspace/
 │   ├── apple-auth/             ← 6
 │   ├── aws-go/                 ← 8
 │   ├── android/                ← 5
-│   └── claude-code-workflow/   ← 6
+│   ├── claude-code-workflow/   ← 6
+│   └── writing/                ← 1
 └── reference-projects/         ← sanitized iOS + Android architecture docs
 ```
 

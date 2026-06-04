@@ -1,6 +1,6 @@
 # global-skills
 
-41 reusable Claude Code Agent Skills, organized by domain. Each is a focused, single-job skill
+42 reusable Claude Code Agent Skills, organized by domain. Each is a focused, single-job skill
 with verified provenance (see [`FRESHNESS_SPEC.md`](FRESHNESS_SPEC.md)). Drop any folder into a
 `.claude/skills/` directory to use it; invoke with `/<skill-name>` or let Claude auto-fire it.
 
@@ -14,6 +14,7 @@ with verified provenance (see [`FRESHNESS_SPEC.md`](FRESHNESS_SPEC.md)). Drop an
 | [`aws-go/`](aws-go/) | 8 | Lambda Go, AWS SDK v2, CDK, MongoDB |
 | [`android/`](android/) | 5 | Kotlin / Compose / KMP |
 | [`claude-code-workflow/`](claude-code-workflow/) | 6 | Claude Code + MCP workflow automation |
+| [`writing/`](writing/) | 1 | Technical-writing canon (Spanish; no spanglish/voseo) |
 
 Each domain folder has its own README listing its skills.
 
@@ -37,15 +38,15 @@ meta/dossier-driven-skill-update    →  repairs it (re-research + localized rew
 
 ## Coverage matrix — what was extracted, and what wasn't
 
-These 41 skills were extracted from a larger corpus of **51 audited source skills** (private,
+These skills were extracted from a larger corpus of **51 audited source skills** (private,
 NDA-locked, across iOS / Android / global tooling). The extraction methodology
 ([`meta/skill-extraction-pattern`](meta/skill-extraction-pattern/SKILL.md)) classified each as
 `extractable`, `partially-extractable`, or `not-extractable`. This table is the honest accounting.
 
-### Published (41)
+### Published (42)
 
 All `extractable` and `partially-extractable` source skills were rewritten from scratch, verified
-against live docs, and published across the 6 domains above. Coverage by source area:
+against live docs, and published across the domains above. Coverage by source area:
 
 | Source area | Audited | Published | Rate |
 |-------------|--------:|----------:|-----:|
@@ -56,7 +57,15 @@ against live docs, and published across the 6 domains above. Coverage by source 
 
 (Some source skills mapped to more than one published skill, and a few cross-platform twins —
 e.g. iOS `swift-module` ↔ Android `compose-clean-architecture-module-scaffold` — are published in
-both domains, so the per-domain counts above sum to the 41 shipped.)
+both domains, so the per-domain counts sum to the 41 from this corpus. The 42nd skill below was
+extracted at sub-skill granularity, not from a whole source skill.)
+
+The 42nd skill — [`writing/spanish-technical-tone-canon`](writing/spanish-technical-tone-canon/SKILL.md)
+— is a finer-grained extraction: it came from a *generic writing rule embedded inside* one of the 9
+`not-extractable` review skills below. The host skill stays private (it encodes one person's review
+history), but its writing-style sub-rule is fully generic, so it was lifted out on its own. That's
+the methodology working at sub-skill granularity: a `not-extractable` skill can still contain an
+extractable rule.
 
 ### Deliberately NOT published (the honest part)
 
@@ -84,4 +93,4 @@ principle.
 
 ---
 
-**Skills:** 41 · **Source corpus audited:** 51 · **NDA-safe:** 0 confidential identifiers across the repo.
+**Skills:** 42 · **Source corpus audited:** 51 · **NDA-safe:** 0 confidential identifiers across the repo.
