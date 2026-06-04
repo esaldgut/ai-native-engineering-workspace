@@ -1,12 +1,12 @@
 ---
 name: skill-pattern-freshness-audit
 description: >-
-  Detect drift between a published technical skill (or any pattern doc) and the current
-  state of the official SDK/framework/spec it documents. Reads the skill's freshness
-  frontmatter, re-verifies each cited API against its live vendor docs, and flags each
-  skill STILL-VALID / STALE / SUPERSEDED with the citation that proves it. Use quarterly
-  per domain, after any major platform release (a new iOS / Compose BOM / AWS SDK major /
-  Claude Code minor), or before relying on a skill that is past its recheck date.
+  Detect (don't repair) drift between a published technical skill and the current state of the
+  official SDK/framework/spec it documents. Reads the skill's freshness frontmatter, re-verifies
+  each cited API against live vendor docs, and sets each skill's status to current / needs-recheck
+  / stale / superseded with the citation that proves it. Use quarterly per domain, after a major
+  platform release (new iOS / Compose BOM / AWS SDK major / Claude Code minor), or before relying
+  on a skill past its recheck date. Repair of a flagged skill is handled by dossier-driven-skill-update.
 version: "1.0.0"
 freshness:
   verified_against:
@@ -15,7 +15,7 @@ freshness:
       version: "2026-06"
     - source: "AWS CDK — cdk drift command reference (canonical drift-detection example)"
       url: "https://docs.aws.amazon.com/cdk/v2/guide/ref-cli-cmd-drift.html"
-      version: "CDK CLI 2.1110.0"
+      version: "CDK CLI 2.1017.0"
   verified_on: "2026-06-03"
   recheck_after:
     trigger: "Claude Code skill-frontmatter schema change, or FRESHNESS_SPEC.md v2"
@@ -47,20 +47,14 @@ not in someone's production code.
 
 **Announce on invoke:** "Using `skill-pattern-freshness-audit` to re-verify `<domain>` skills against current docs."
 
-## Why this is necessary (real drift cases)
+## Why this is necessary
 
-These five patterns were all already wrong or mythical at a single verification pass — proof
-that un-audited skills decay:
-
-| Pattern | Stale claim | Current reality (cited) | Decay window |
-|---|---|---|---|
-| CDK drift | "use `aws cli describe`" | `cdk drift` command ([CDK 2.1110.0](https://docs.aws.amazon.com/cdk/v2/guide/ref-cli-cmd-drift.html)) | ~3 mo |
-| Android secrets | `EncryptedSharedPreferences` | deprecated → DataStore + Tink + Keystore | ~1–2 yr |
-| Hilt + Compose | `hilt-navigation-compose` | moved to `hilt-lifecycle-viewmodel-compose` ([Hilt 1.3.0](https://developer.android.com/jetpack/androidx/releases/hilt)) | ~9 mo |
-| Coroutine tests | `runBlockingTest` | deprecated → `runTest` (kotlinx 1.6+) | already gone |
-| Constant-time compare | `CryptoKit.timingSafeEqual` | **never existed** — use `HMAC.isValidAuthenticationCode` | permanent myth |
-
-The audit's job is to catch each of these *as a status flag* before a reader copies it.
+`global-skills/FRESHNESS_SPEC.md` documents five real drift cases found in a single verification
+pass — `cdk drift` superseding a manual idiom, `EncryptedSharedPreferences` deprecated,
+`hiltViewModel()` artifact renamed, `runBlockingTest` → `runTest`, and the mythical
+`CryptoKit.timingSafeEqual`. Each is the kind of silent rot this audit exists to catch *as a
+status flag* before a reader copies it into production. (See the spec's table for the cited
+sources; this skill doesn't restate it.)
 
 ## Inputs
 
@@ -69,9 +63,13 @@ The audit's job is to catch each of these *as a status flag* before a reader cop
 ```
 
 - `<domain>` — one of `apple`, `apple-auth`, `aws-go`, `android`, `claude-code-workflow`,
-  `meta`, or `all`. Maps to `global-skills/<domain>/`.
-- `--fix` — after reporting, update each skill's `freshness.status` field in place (does NOT
-  rewrite the body; body rewrites are the job of `dossier-driven-skill-update`).
+  `meta`, or `all`. Maps to `global-skills/<domain>/`. (At this repo's current stage only `meta/`
+  is populated; the other domains are populated by the skill-extraction phase. Auditing an empty
+  domain returns an empty report, which is correct.)
+- `--fix` — after reporting, update each skill's `freshness.status` field in place, and append a
+  dated audit line to the body footer. It never rewrites the body's *instructions* — that's the
+  job of `dossier-driven-skill-update`. So this skill writes status + a footer line only; it is
+  not a body editor.
 - `--strict` — treat any unresolvable citation URL as a failure (default: warn).
 
 ## Methodology
@@ -102,7 +100,7 @@ For each skill flagged `needs-recheck` (or all, if a release just dropped), re-v
    has moved / deprecated" page → strong drift signal.
 2. Search the vendor's current docs for the literal API string (WebSearch:
    `site:developer.apple.com "<API>"`, `site:developer.android.com "<artifact>"`,
-   `site:docs.aws.amazon.com "<command>"`, `site:docs.claude.com "<feature>"`).
+   `site:docs.aws.amazon.com "<command>"`, `site:code.claude.com "<feature>"`).
 3. Classify the result:
 
 | Finding | Status to set |
@@ -117,7 +115,8 @@ release notes). A rename in release notes that the skill body doesn't mention = 
 
 ### Step 3 — Report
 
-Emit a table, one row per skill:
+Emit a table, one row per skill (the skill names below are illustrative of an `android` domain
+once populated):
 
 ```
 DOMAIN: android   (audited 2026-09-15)
@@ -184,6 +183,6 @@ The `--fix` keeps `status` honest automatically; a human reviews the report and 
 ---
 
 **Last verified:** 2026-06-03 against Anthropic Agent Skills best practices + the AWS `cdk drift`
-docs (used as the canonical "pattern that aged in 3 months" example).
+docs (the canonical example of a documented pattern superseded by a new first-class command).
 **Re-check after:** any Claude Code skill-frontmatter schema change, or by 2026-12-03. **Decay risk:** low.
 **Found a drift in this skill itself?** Open an issue or re-run the audit on `meta`.

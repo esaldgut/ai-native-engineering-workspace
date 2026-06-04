@@ -13,7 +13,7 @@ freshness:
   verified_against:
     - source: "AWS — cdk drift command reference (worked example of a pattern that drifted)"
       url: "https://docs.aws.amazon.com/cdk/v2/guide/ref-cli-cmd-drift.html"
-      version: "CDK CLI 2.1110.0"
+      version: "CDK CLI 2.1017.0"
     - source: "Android — AndroidX Hilt release notes (worked example: hiltViewModel artifact rename)"
       url: "https://developer.android.com/jetpack/androidx/releases/hilt"
       version: "Hilt 1.3.0"
@@ -49,7 +49,8 @@ only runs on explicit `/dossier-driven-skill-update <skill-path>`, never automat
 
 ## Worked example (why this exists)
 
-The audit found `compose-feature-scaffold` was `stale`: it wrote
+Illustrative scenario (using an Android skill of the kind produced by the extraction phase): the
+audit flags `compose-feature-scaffold` as `stale` because it wrote
 `androidx.hilt:hilt-navigation-compose` for a non-navigation `hiltViewModel()`, but Hilt 1.3.0
 ([release notes](https://developer.android.com/jetpack/androidx/releases/hilt)) moved that API
 to `androidx.hilt:hilt-lifecycle-viewmodel-compose`. This skill's job: confirm the rename
@@ -143,7 +144,7 @@ reports `current`. If it still flags drift, the rewrite missed a reference — r
 skill-extraction-pattern        →  creates a skill (from private → public)
             │
             ▼
-skill-pattern-freshness-audit   →  detects when it has drifted (cheap, frequent, read-only)
+skill-pattern-freshness-audit   →  detects when it has drifted (cheap, frequent; writes status only)
             │  (flags stale/superseded)
             ▼
 dossier-driven-skill-update     →  repairs it (research + rewrite + re-verify)  ← you are here

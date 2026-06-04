@@ -14,22 +14,24 @@ stale or mythical at the moment of verification:
 
 | Pattern | Naive assumption | Verified reality | Decay window |
 |---|---|---|---|
-| CDK drift detection | "use `aws cli describe`" | `cdk drift` command shipped (CDK 2.1110.0, Mar 2026) | ~3 months |
-| Android secrets | `EncryptedSharedPreferences` | deprecated → DataStore + Tink + Keystore | ~1–2 years |
-| Hilt + Compose | `hilt-navigation-compose` artifact | moved to `hilt-lifecycle-viewmodel-compose` (Hilt 1.3.0) | ~9 months |
-| Coroutine tests | `runBlockingTest` | deprecated → `runTest` (kotlinx 1.6+) | already obsolete |
-| Constant-time compare | `CryptoKit.timingSafeEqual` | **never existed** — common myth | permanent |
+| CDK drift detection | "use `aws cloudformation detect-stack-drift`" by hand | `cdk drift` command shipped (CDK CLI 2.1017.0, May 2025) | superseded a manual idiom |
+| Android secrets | `EncryptedSharedPreferences` | deprecated; `androidx.security:security-crypto` 1.1.0 (Jul 2025) is the terminal release | ~1 year |
+| Hilt + Compose | `hilt-navigation-compose` artifact | moved to `hilt-lifecycle-viewmodel-compose` (Hilt 1.3.0, Sep 2025) | ~breaking rename |
+| Coroutine tests | `runBlockingTest` | deprecated → `runTest` (kotlinx-coroutines-test 1.6+) | already obsolete |
+| Constant-time compare | `CryptoKit.timingSafeEqual` | **never existed** — common myth; use `HMAC.isValidAuthenticationCode` | permanent |
 
 A skill without provenance silently rots into one of those traps. The freshness block makes
 the rot **visible and queryable**: the `skill-pattern-freshness-audit` skill reads these
-blocks, compares against current docs, and flags `STALE` / `BREAKING_CHANGE` / `STILL_VALID`.
+blocks, compares against current docs, and sets each skill's `status` to one of the canonical
+values defined below — `current`, `needs-recheck`, `stale`, or `superseded`.
 
 ## The block
 
-Append a `freshness:` key to the standard Agent Skill frontmatter. The skill's existing
-`name`, `description`, and optional `version` / `disable-model-invocation` keys are unchanged
-— `freshness` is additive and ignored by Claude Code's skill loader (it only reads `name` /
-`description`).
+Append a `freshness:` key to the Agent Skill frontmatter. The officially documented frontmatter
+fields are just `name` and `description`; Claude Code's skill loader reads only those two at
+startup and ignores any other keys. So `freshness:` (like the commonly-used `version:` /
+`disable-model-invocation:` conventions) is additive and inert to the loader — it exists purely
+for humans and for the audit tooling in this repo.
 
 ```yaml
 ---
@@ -67,7 +69,7 @@ nearest official page.
 | Sub-field | Required | Notes |
 |---|---|---|
 | `source` | yes | Human-readable name of the doc / session / RFC / spec |
-| `url` | yes | Citable URL. Must resolve. Prefer `developer.apple.com`, `docs.aws.amazon.com`, `developer.android.com`, `docs.claude.com`, `modelcontextprotocol.io`, IETF RFC, OWASP |
+| `url` | yes | Citable URL. Must resolve. Prefer `developer.apple.com`, `docs.aws.amazon.com`, `developer.android.com`, `platform.claude.com` (API/Skills docs) / `code.claude.com` (Claude Code product docs), `modelcontextprotocol.io`, IETF RFC, OWASP |
 | `version` | yes | The platform/SDK/spec version the claim was true for (e.g., `iOS 26.0`, `AWS SDK Go v2 1.30`, `Compose BOM 2026.05.01`, `Claude Code v2.1.121`, `RFC 8252`) |
 
 Minimum **2** entries per skill (the anti-sterilization rule: at least one must be a primary
@@ -149,9 +151,18 @@ A skill's freshness block is valid iff:
 
 The `skill-pattern-freshness-audit` skill checks 1–6 as a lint pass before doing drift detection.
 
+## Scope of governance
+
+This spec governs every `SKILL.md` under `global-skills/`. The spec **document itself is not a
+`SKILL.md`** and is therefore not freshness-audited the same way — instead it carries its own
+dated provenance in the footer below and is revised by hand when the skill-frontmatter contract
+or the cited drift examples change. The `skill-pattern-freshness-audit` skill audits the skills;
+this spec is the contract they are audited against, maintained out-of-band.
+
 ---
 
 **Spec version:** 1.0.0
 **Established:** 2026-06-03
 **Applies to:** every `SKILL.md` under `global-skills/`
-**Audited by:** `global-skills/meta/skill-pattern-freshness-audit/SKILL.md`
+**Drift examples verified:** 2026-06-03 (CDK `cdk drift` 2.1017.0, Hilt 1.3.0, kotlinx-coroutines-test 1.6, AndroidX security-crypto 1.1.0, CryptoKit).
+**Revise this spec when:** Claude Code changes its skill-frontmatter contract, or any cited drift example is itself superseded.

@@ -59,8 +59,8 @@ Pattern extraction from concrete systems is a 30-year-old discipline:
   (ET++, MacApp, HotDraw) by stripping framework-specific detail and naming the recurring
   structure. Their template — Intent, Motivation, Applicability, Structure, Consequences — is
   exactly what a good generic SKILL.md needs.
-- **Anthropic's own skill guidance** reinforces the target shape: *"One skill, one job"* and a
-  warning against *"vague, over-generic descriptions"* that never fire. Those two rules drive
+- **Anthropic's own skill guidance** reinforces the target shape: it emphasizes single-purpose
+  skills and warns against over-generic descriptions that never fire. Those two principles drive
   the two hardest decisions in extraction (when to **split** a mega-skill, and how to keep the
   **trigger specific** while removing the **project specificity**).
 
@@ -136,7 +136,7 @@ gives auditors a literal string to check; the prose around it generalizes.
 
 Confirm the result could be produced *by this pipeline applied to a future version of itself*.
 If `skill-extraction-pattern` couldn't extract a future skill-extraction skill, the methodology
-is incomplete. (It can — you're reading the proof.)
+is incomplete.
 
 ## Extraction anti-patterns (the failure modes)
 
