@@ -1,4 +1,4 @@
-# 07 — Competitor UX/UI Design Patterns for The Platform
+# 07 — Competitor UX/UI Design Patterns for MyApp
 
 Research compiled 2026-03-27 from design case studies, engineering blogs, UX pattern
 libraries, and official documentation. Only verified patterns with sources.
@@ -296,7 +296,7 @@ libraries, and official documentation. Only verified patterns with sources.
 
 **Group payment split (proposed UX improvement):**
 - Pay Full Amount vs Split the Cost options
-- Add co-travelers by email
+- Add additional guests by email
 - Equal split or custom amounts per guest
 - Real-time status tracking: Processing → Done
 
@@ -330,7 +330,7 @@ libraries, and official documentation. Only verified patterns with sources.
 - Mark today's date distinctly
 - Support swipe gestures for month navigation
 
-### 3.6 Guest/Traveler Count Selector
+### 3.6 Guest Count Selector
 
 **Airbnb pattern:**
 - Category steppers: Adults (13+), Children (2-12), Infants (under 2), Pets
@@ -378,7 +378,7 @@ libraries, and official documentation. Only verified patterns with sources.
 - Score displayed in colored circular badge (blue spectrum)
 - Reviewer nationality flag shown
 - Pros/Cons format: "Liked: ..." / "Disliked: ..."
-- Filterable by traveler type (Couples, Families, Solo, Business)
+- Filterable by guest type (Couples, Families, Solo, Business)
 
 ### 3.9 Map Integration
 
@@ -617,17 +617,17 @@ Home | Friends | [+] Create | Inbox | Profile
 - Swipe right: camera/create (from Home)
 - Long press: speed/save/report options
 
-### 5.3 Navigation Pattern Comparison (The Platform Applicability)
+### 5.3 Navigation Pattern Comparison (MyApp Applicability)
 
 **Source:** [Frank Rausch - iOS Navigation Patterns](https://frankrausch.com/ios-navigation/)
 
-| Pattern | Use Case | The Platform Feature |
+| Pattern | Use Case | MyApp Feature |
 |---|---|---|
 | Tab bar (flat) | Top-level sections | Feed, Marketplace, Chat, Profile |
 | Drill-down (push/pop) | Hierarchical content | Listing detail, user profile |
 | Bottom sheet (low-friction) | Contextual actions | Comments, share, filters |
 | Step-by-step (wizard) | Linear flows | Booking, onboarding, payment |
-| Modal sheet | Self-contained tasks | Create moment, edit profile |
+| Modal sheet | Self-contained tasks | Create post, edit profile |
 | Pyramid (sibling swipe) | Peer content | Stories, reels, gallery images |
 
 ---
@@ -710,13 +710,13 @@ Home | Friends | [+] Create | Inbox | Profile
 
 ---
 
-## 7. Key Takeaways for The Platform
+## 7. Key Takeaways for MyApp
 
-### Profile (Social Network for Travelers + Influencers)
+### Profile (Social + marketplace app)
 - **Adopt Instagram's compact header pattern**: avatar (left) + stats bar (right) — proven for content-creator profiles
-- **Stats bar**: Moments | Followers | Following (tappable, abbreviate at 10K+)
-- **Tab switching**: Moments grid | Reels/Videos | Saved/Collections — sticky tabs on scroll
-- **Verified/Influencer badge**: inline after username (differentiates Influencer from Traveler role)
+- **Stats bar**: Posts | Followers | Following (tappable, abbreviate at 10K+)
+- **Tab switching**: Posts grid | Reels/Videos | Saved/Collections — sticky tabs on scroll
+- **Verified/Creator badge**: inline after username (differentiates a creator from a standard user role)
 - **Edit profile**: modal sheet with fields in order: Photo, Name, Bio, Website, Pronouns
 
 ### Social Graph (Follow + Friendship Model)
@@ -726,15 +726,15 @@ Home | Friends | [+] Create | Inbox | Profile
 - **Mutual followers**: "Followed by [avatar] and X others" on profile (Instagram pattern)
 - **Suggestions**: "People you may know" horizontal carousel with mutual connection counts
 
-### Marketplace (Experiencias The Platform)
+### Marketplace (Listings)
 - **Listing card**: image carousel + heart overlay + title + location + rating + price per person
-- **Price display**: "From $X,XXX MXN /person" (Airbnb-style bold price + unit)
-- **Booking flow**: Step-by-step wizard — Select dates → Select travelers → Review → Pay (Airbnb pattern)
+- **Price display**: "From $X,XXX /person" (Airbnb-style bold price + unit)
+- **Booking flow**: Step-by-step wizard — Select dates → Select guests → Review → Pay (Airbnb pattern)
 - **Date picker**: Calendar range selection with price per night/date, inline or modal
 - **Guest selector**: Stepper controls with category labels (Adults, Children)
 - **Filters**: full-screen modal with live result count, category chips horizontal scroll
 - **Map**: price-labeled pins, tap for mini card, drag to refresh (Airbnb pattern)
-- **Reviews**: numeric rating + category breakdown + traveler-type filter (Booking.com pattern)
+- **Reviews**: numeric rating + category breakdown + guest-type filter (Booking.com pattern)
 
 ### Onboarding
 - **Browse first, register later**: allow feed + marketplace browsing without account (Airbnb + TikTok pattern)
@@ -748,12 +748,12 @@ Home | Friends | [+] Create | Inbox | Profile
 - **Tab bar**: Home (Feed) | Explore | [+] Create | Marketplace | Profile
 - **Center create button**: visually distinct, larger (TikTok pattern)
 - **Story bar**: horizontal avatar scroll at top of feed (Instagram pattern)
-- **DMs**: accessible from top-right icon on Home (pre-2025 Instagram pattern, more appropriate for The Platform's non-DM-centric model)
+- **DMs**: accessible from top-right icon on Home (pre-2025 Instagram pattern, more appropriate for MyApp's non-DM-centric model)
 - **Notifications**: bell icon with badge count in top bar
 
 ### Notifications
 - **Activity feed**: time-sectioned (Today, This Week, Earlier)
-- **Grouping**: "X and N others liked your Momento" with thumbnail
+- **Grouping**: "X and N others liked your Post" with thumbnail
 - **Types**: likes, comments, follows, friendship requests, bookings, payments
 - **Mark as read**: background highlight for unread, auto-clear on view
 - **Settings**: granular per-type toggles + frequency modes

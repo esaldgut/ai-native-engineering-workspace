@@ -1,6 +1,6 @@
 # 08 — MCP Servers Configuration
 
-7 MCP servers connected to Claude Code for the The Platform iOS project.
+7 MCP servers connected to Claude Code for the MyApp iOS project.
 
 ## Installed Servers
 

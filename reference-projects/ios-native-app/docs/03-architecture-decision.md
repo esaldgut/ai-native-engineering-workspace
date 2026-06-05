@@ -1,4 +1,4 @@
-# 03 — Decisión de Arquitectura: Stack de Networking The Platform iOS
+# 03 — Decisión de Arquitectura: Stack de Networking MyApp iOS
 
 Documento de decisión basado en la investigación técnica (02-tech-research.md)
 y el contexto del MVP (01-mvp-context.md).
@@ -10,7 +10,7 @@ las mejores herramientas para cada capa:
 
 ```
 ┌──────────────────────────────────────────────────────┐
-│                    The Platform iOS App                       │
+│                    MyApp iOS App                      │
 │              Swift 6.3 / iOS 26.4                     │
 ├──────────────────────────────────────────────────────┤
 │                                                       │
@@ -102,7 +102,7 @@ para conversión a `Date`.
 | Razón | Detalle |
 |---|---|
 | Apollo normalized cache | Consultas cache-first para feed y marketplace |
-| SwiftData | Cola de mutations pendientes, borradores de momentos, mensajes en queue |
+| SwiftData | Cola de mutations pendientes, borradores de posts, mensajes en queue |
 | No DataStore de Amplify | Complejo con schemas grandes, no Swift 6 safe |
 
 ### Seguridad

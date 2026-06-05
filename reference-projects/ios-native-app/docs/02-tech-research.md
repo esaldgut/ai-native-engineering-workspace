@@ -1,4 +1,4 @@
-# 02 — Investigación Técnica: Networking para The Platform iOS Nativo
+# 02 — Investigación Técnica: Networking para MyApp iOS Nativo
 
 Investigación realizada el 2026-03-26 para determinar el stack de networking
 óptimo para Swift 6.3, iOS 26.4, AWS AppSync GraphQL, con requisitos de

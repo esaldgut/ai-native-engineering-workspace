@@ -1,4 +1,4 @@
-# 06 — iOS 26 / iPadOS 26 UX/UI Design Patterns for The Platform
+# 06 — iOS 26 / iPadOS 26 UX/UI Design Patterns for MyApp
 
 Research compiled 2026-03-26 from Apple developer documentation, WWDC25 sessions,
 and Human Interface Guidelines. Only verified patterns with sources.
@@ -215,7 +215,7 @@ Platform-specific control shapes:
 | `.regular` | `.regular` | iPad / large window |
 | `.regular` | `.compact` | Rare edge case |
 
-**Best approach for The Platform**: Use `NavigationSplitView` as root — it automatically collapses
+**Best approach for MyApp**: Use `NavigationSplitView` as root — it automatically collapses
 to `NavigationStack` in compact width. No need for manual switching.
 
 ### 3.2 NavigationSplitView Adaptive Pattern

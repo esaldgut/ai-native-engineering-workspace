@@ -629,7 +629,7 @@ final nonisolated class CognitoAuthService: Sendable {
 ```
 
 **Why:** When a backend contract changes (Cognito payload, AppSync schema,
-GraphQL operation shape, S3 upload metadata, MercadoPago request body),
+GraphQL operation shape, S3 upload metadata, payment-provider request body),
 keeping the old client signature alive under `@available(*, deprecated)`
 is dangerous, NOT prudent:
 
@@ -643,13 +643,13 @@ is dangerous, NOT prudent:
    refactor is that the compile errors enumerate every callsite. Hiding
    them behind a working overload defers the work and accumulates debt.
 3. **The shim's "compatibility" code is itself a guess.** The example
-   above guesses that a full name like "Erick Aldama Gutiérrez" splits
-   into given="Erick" and family="Aldama Gutiérrez". For Spanish names
+   above guesses that a full name like "María José García Hernández" splits
+   into given="María" and family="José García Hernández". For Spanish names
    with two family names (Mexico, Spain, much of Latin America), that's
    wrong — the user has `apellido paterno` + `apellido materno`, and
    the given name itself may be compound (María José, Juan Carlos). A
    "compatibility" shim encodes one parsing guess as the migration
-   semantics; L65 + L68 say question the guess instead.
+   semantics; the lesson is to question the guess instead.
 
 The legitimate use of `@available(*, deprecated)` is client-side
 refactors (renaming a public helper, restructuring a SwiftUI View's
@@ -665,8 +665,8 @@ the corresponding ViewModel because the server payload changed.
 Pattern signal: PR description contains phrases like "for backwards
 compatibility", "smooth migration", "give consumers time to update",
 "both signatures are supported" — when those phrases appear next to
-a Cognito / AppSync / S3 / MercadoPago / push API contract change,
-the PR violates AP-10. Flip atomically; the build break is the
+a Cognito / AppSync / S3 / payment-provider / push API contract change,
+the PR violates this rule. Flip atomically; the build break is the
 discovery tool.
 
 ---
