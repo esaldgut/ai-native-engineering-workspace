@@ -170,6 +170,8 @@ ai-native-engineering-workspace/
 - **Bilingual.** This README and the skills are in English; some platform-base workflow docs keep
   their original Spanish body. Each skill's `description` (the part Claude reads to decide whether
   to fire) is English.
+- **Process.** The repository follows Git Flow with branch protection and a Conventional Commits
+  history — see [`CONTRIBUTING.md`](CONTRIBUTING.md).
 - **License:** MIT — reuse freely.
 - **Provenance dates** throughout reflect when each pattern was last verified; run the freshness
   audit to re-confirm against current docs.
