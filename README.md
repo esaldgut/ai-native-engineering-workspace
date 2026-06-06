@@ -76,6 +76,38 @@ production.
 
 ---
 
+## What keeps this library dynamic: `lessongate`
+
+A skills library that's a snapshot rots. This one is fed by an agent.
+
+[**`lessongate`**](https://github.com/esaldgut/lessongate) is a local Go runtime agent that watches a
+private project's merged pull requests, asks Claude which of the lessons captured from them are
+**generalizable** (a reusable pattern, not business-specific), sanitizes each through an NDA gate,
+and opens a **draft pull request** to this repository for human review. The library upstreams from
+production engineering instead of being hand-curated once.
+
+The relationship is the point: one repo is the **agent** that produces knowledge; the other is the
+**library** it feeds. That separation is also what makes the flow demonstrable — an agent that opens
+PRs to a sibling repo, not a repo editing itself.
+
+The agent is built to a production bar, and its design choices are the same ones this library
+documents:
+
+- The confidentiality control is a **deterministic gate** (deny-list + structural regex + a template
+  allow-list, tested against a golden corpus with a seeded canary), not an LLM. The Claude verify
+  pass is extra recall only — it can downgrade *safe → unsafe*, never the reverse.
+- Sanitization runs **before** anything leaves the process; the agent consumes curated lesson text,
+  never raw diffs.
+- The dependency stack was **verified against live sources**, not assumed — which overturned several
+  defaults (e.g. `go-github` v88's `NewClient` now returns an error; Claude Opus 4.8 is
+  adaptive-thinking-only, so determinism comes from forced structured output, not a temperature knob).
+- Built across six TDD phases; the security-critical path runs deterministically offline in CI.
+
+It's the working proof of the premise this repo states: that AI-native engineering means building
+the tooling that keeps your knowledge current, not just writing the knowledge down.
+
+---
+
 ## How a skill is structured
 
 Every `SKILL.md` follows the same shape — a focused, single-job Agent Skill:
